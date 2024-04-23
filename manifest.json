@@ -10,7 +10,7 @@
         "support": {
             "top_bar": {
                 "url": "assets/iframe.html",
-                "flexible": true
+                "autoHide": true
             }
         }
     },
