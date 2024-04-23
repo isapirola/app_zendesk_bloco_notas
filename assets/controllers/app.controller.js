@@ -8,14 +8,12 @@ app.controller("AppController", [
             .then((response) => {
                 var userName = response.currentUser.name;
                 var userId = response.currentUser.id;
-                console.log("carregou usuario");
 
                 // Aqui userId estará definido, então você pode fazer a chamada para lookupCustomObjectRelationship
                 return zendeskService
                     .lookupCustomObjectRelationship(userId)
                     .then((response) => {
                         if (response.count == 1) {
-                            console.log("carregou o texto");
                             $scope.textoNota =
                                 response.custom_object_records[0].custom_object_fields.texto_nota;
                         } else if (response.count == 0) {
@@ -50,5 +48,9 @@ app.controller("AppController", [
                 console.error(error);
                 console.log("Não foi possível obter dados do usuário atual");
             });
+
+        client.on("pane.deactivated", function () {
+            //handler code
+        });
     },
 ]);
