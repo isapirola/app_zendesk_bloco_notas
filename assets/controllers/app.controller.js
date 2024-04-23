@@ -16,9 +16,8 @@ app.controller("AppController", [
         zendeskService
             .getCustomObjectRecordApi(objectId)
             .then((response) => {
-                // console.log(response.custom_object_record.custom_object_fields.texto_nota);
-                // $scope.textoNota =
-                //     response.custom_object_record.custom_object_fields.texto_nota;
+                $scope.textoNota =
+                    response.custom_object_record.custom_object_fields.texto_nota;
             })
             .catch(function (error) {
                 console.error(error);
