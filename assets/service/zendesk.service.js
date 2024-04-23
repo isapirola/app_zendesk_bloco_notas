@@ -38,15 +38,16 @@ app.service("zendeskService", [
             return deferred.promise;
         };
 
-        this.getCustomObjectRecordApi = function (objectId) {
+        this.createCustomObjectRecord = function (objectToCreate) {
             var deferred = $q.defer();
             client
                 .request({
-                    url: `/api/v2/custom_objects/anotacao/records/${objectId}`,
-                    type: "GET",
+                    url: `/api/v2/custom_objects/anotacao/records`,
+                    type: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    data: JSON.stringify(objectToCreate),
                 })
                 .then(function (response) {
                     deferred.resolve(response);
