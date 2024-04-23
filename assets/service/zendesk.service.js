@@ -1,8 +1,6 @@
 app.service("zendeskService", [
     "$q",
     function ($q) {
-        var client = ZAFClient.init();
-
         this.getCurrentUser = function () {
             var deferred = $q.defer();
             client
@@ -59,23 +57,16 @@ app.service("zendeskService", [
             return deferred.promise;
         };
 
-        this.updateCustomObjectRecord = function (userId, objectId, texto_novo) {
+        this.updateCustomObjectRecord = function (objectId, objectToUpdate) {
             var deferred = $q.defer();
             client
                 .request({
-                    url: `api/v2/custom_objects/anotacao/records/${objectId}`,
+                    url: `https://flordemaio74.zendesk.com/api/v2/custom_objects/anotacao/records/${objectId}`,
                     type: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    data: JSON.stringify({
-                        custom_object_record: {
-                            custom_object_fields: {
-                                agente: userId,
-                                texto_nota: texto_novo,
-                            },
-                        },
-                    }),
+                    data: JSON.stringify(objectToUpdate),
                 })
                 .then(function (response) {
                     deferred.resolve(response);
