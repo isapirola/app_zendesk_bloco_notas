@@ -36,5 +36,26 @@ app.service("zendeskService", [
 
             return deferred.promise;
         };
+
+        this.lookupCustomObjectRelationship = function (userId) {
+            var deferred = $q.defer();
+            var fieldId = "28714579779347";
+            client
+                .request({
+                    url: `/api/v2/zen:user/${userId}/relationship_fields/${fieldId}/zen:custom_object:anotacao`,
+                    type: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then(function (response) {
+                    deferred.resolve(response);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        };
     },
 ]);
