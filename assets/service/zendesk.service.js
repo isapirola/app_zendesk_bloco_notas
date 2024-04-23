@@ -21,16 +21,20 @@ app.service("zendeskService", [
                 });
 
             return deferred.promise;
+        };
 
-            // const options = {
-            //     url: "https://flordemaio74.zendesk.com/api/v2/custom_objects/anotacao/records/01HW5FZA3WQH7BZKCVY7ZMBDSV",
-            //     type: "GET",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            // };
+        this.getCurrentUser = function () {
+            var deferred = $q.defer();
+            client
+                .get("currentUser")
+                .then(function (response) {
+                    deferred.resolve(response);
+                })
+                .catch(function (error) {
+                    deferred.reject(error);
+                });
 
-            // return client.request(options);
+            return deferred.promise;
         };
     },
 ]);

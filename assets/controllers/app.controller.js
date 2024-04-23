@@ -3,14 +3,22 @@ app.controller("AppController", [
     "zendeskService",
     function ($scope, zendeskService) {
         var client = ZAFClient.init();
+
+        var userId;
+        var userName;
         var objectId = "01HW5FZA3WQH7BZKCVY7ZMBDSV";
+
+        zendeskService.getCurrentUser().then((response) => {
+            userName = response.currentUser.name;
+            userId = response.currentUser.id;
+        });
 
         zendeskService
             .getCustomObjectRecordApi(objectId)
             .then((response) => {
-                console.log(response.custom_object_record.custom_object_fields.texto_nota);
-                $scope.textoNota =
-                    response.custom_object_record.custom_object_fields.texto_nota;
+                // console.log(response.custom_object_record.custom_object_fields.texto_nota);
+                // $scope.textoNota =
+                //     response.custom_object_record.custom_object_fields.texto_nota;
             })
             .catch(function (error) {
                 console.error(error);
