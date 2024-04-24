@@ -1,3 +1,26 @@
+body {
+    height: 280px;
+    margin: 10px;
+}
+
+#container {
+    height: 100%;
+    /* display: flex;
+    flex-direction: column; */
+}
+
 textarea {
+    background-color: #e8fedd;
+    border: 1px solid #409618;
+    border-radius: 5px;
+    padding: 5px 10px;
     resize: none;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+textarea:focus {
+    outline: none;
 }
