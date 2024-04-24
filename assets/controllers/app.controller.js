@@ -5,6 +5,7 @@ app.controller("AppController", [
     function ($scope, zendeskService) {
         var userName;
         var userId;
+        var texto_velho;
         var texto_novo;
         var objectId;
 
@@ -23,6 +24,7 @@ app.controller("AppController", [
                                 objectId = response.custom_object_records[0].id;
                                 $scope.textoNota =
                                     response.custom_object_records[0].custom_object_fields.texto_nota;
+                                texto_velho = $scope.textoNota;
                             } else if (response.count == 0) {
                                 var objectToCreate = {
                                     custom_object_record: {
@@ -60,23 +62,25 @@ app.controller("AppController", [
         client.on("pane.deactivated", function () {
             texto_novo = $scope.textoNota;
 
-            var objectToUpdate = {
-                custom_object_record: {
-                    custom_object_fields: {
-                        texto_nota: texto_novo,
+            if (texto_novo != texto_velho) {
+                var objectToUpdate = {
+                    custom_object_record: {
+                        custom_object_fields: {
+                            texto_nota: texto_novo,
+                        },
                     },
-                },
-            };
+                };
 
-            zendeskService
-                .updateCustomObjectRecord(objectId, objectToUpdate)
-                .then((response) => {
-                    console.log("texto atualizado");
-                })
-                .catch((error) => {
-                    console.error(error);
-                    console.log("Não foi possível atualizar o texto do objeto");
-                });
+                zendeskService
+                    .updateCustomObjectRecord(objectId, objectToUpdate)
+                    .then((response) => {
+                        texto_velho = texto_novo;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        console.log("Não foi possível atualizar o texto do objeto");
+                    });
+            }
         });
     },
 ]);
