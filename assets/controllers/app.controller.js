@@ -40,6 +40,7 @@ app.controller("AppController", [
                                     .then((response) => {
                                         console.log("Um objeto de notas foi criado");
                                         console.log(response);
+                                        client.invoke("notify", "Bloco de notas criado");
                                     });
                             } else {
                                 $scope.textoNota =
@@ -75,6 +76,7 @@ app.controller("AppController", [
                     .updateCustomObjectRecord(objectId, objectToUpdate)
                     .then((response) => {
                         texto_velho = texto_novo;
+                        client.invoke("notify", "Anotações atualizadas");
                     })
                     .catch((error) => {
                         console.error(error);
