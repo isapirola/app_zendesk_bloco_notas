@@ -43,8 +43,11 @@ app.controller("AppController", [
                                         client.invoke("notify", "Bloco de notas criado");
                                     });
                             } else {
-                                $scope.textoNota =
-                                    "Existe mais de um objeto de notas atribuido ao usuário atual, favor pedir ajuda para a administração";
+                                client.invoke(
+                                    "notify",
+                                    "Existe mais de um objeto de notas atribuido ao usuário atual, favor pedir ajuda para a administração",
+                                    "error"
+                                );
                             }
                         })
                         .catch((error) => {
@@ -80,7 +83,11 @@ app.controller("AppController", [
                     })
                     .catch((error) => {
                         console.error(error);
-                        console.log("Não foi possível atualizar o texto do objeto");
+                        client.invoke(
+                            "notify",
+                            "Não foi possível atualizar o texto do objeto",
+                            "error"
+                        );
                     });
             }
         });
